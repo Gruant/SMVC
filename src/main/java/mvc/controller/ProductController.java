@@ -21,7 +21,7 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String showAllProducts(Model uiModel){
         List<Product> products = productRepository.getAll();
         uiModel.addAttribute("products", products);
@@ -37,17 +37,17 @@ public class ProductController {
         return "product";
     }
 
-    @RequestMapping(params = "form", method = RequestMethod.GET)
+    @RequestMapping(value = "form", method = RequestMethod.GET)
     public String getForm(Model uiModel){
         Product product = new Product();
         uiModel.addAttribute("product", product);
         return "form";
     }
 
-    @RequestMapping(params = "form", method = RequestMethod.POST)
+    @RequestMapping(value = "form", method = RequestMethod.POST)
     public String create(Product product) {
         productRepository.save(product);
-        return "products";
+        return "redirect:/products";
     }
 
 }
